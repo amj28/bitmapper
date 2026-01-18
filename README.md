@@ -1,5 +1,5 @@
 
-Bitmap maker that lets you draw stuff, then returns the stuff you drew in code format (an 32bit int for example)
+Bitmap maker that lets you draw stuff, then returns the stuff you drew in code format (in say, a 32bit int for example)
 
 ## Getting Started
 
