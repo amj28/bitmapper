@@ -1,14 +1,20 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface GridProps {
   rows: number;
   cols: number;
+  fill?: boolean;
 }
 
-export default function Grid({ rows, cols }: GridProps) {
+export default function Grid({ rows, cols, fill }: GridProps) {
   const [cells, setCells] = useState<boolean[]>(Array(rows * cols).fill(false));
   const isPointerDown = useRef(false);
+
+  // Fill once if `fill` is true
+  useEffect(() => {
+    if (fill) setCells(Array(rows * cols).fill(true));
+  }, [fill, rows, cols]);
 
   const toggleCell = (index: number) => {
     setCells(prev => {
