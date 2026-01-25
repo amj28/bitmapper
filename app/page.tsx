@@ -20,12 +20,15 @@ export default function Home() {
   const [flag, setFlag] = useState(false); // remount grid for clear/fill
   const [size, setSize] = useState(32); // sets grid size, default 32x32
   const [copied, setCopied] = useState(false); // state for copy button feedback
+  const [dirty, setDirty] = useState(false); // tells us when to update code string
   
-  const code = `std::array<std::int32_t, 4> test = 
-	  { 1,2,3,4,5,6,7,8,
-  	    1,2,3,4,5,6,7,8,
-  	    1,2,3,4,5,6,7,8,
-  	    1,2,3,4,5,6,7,8 };`;
+  const str = `std::array<std::uint32_t, 4> test = 
+	  { 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0  }`;
+
+  const [code, setCode] = useState(str);
 
   const handleSizeChange = (value: string) => {
     setSize(Number(value)); // Set size directly from value
@@ -63,6 +66,7 @@ export default function Home() {
             onClick={() => {
               if (!flag) {
                 setFlag(true);
+		if (!dirty) setDirty(true);
                 setKey(k => k + 1);
               }
             }}
@@ -75,6 +79,7 @@ export default function Home() {
             aria-label="Clear grid"
             onClick={() => {
               setFlag(false);
+	      if (!dirty) setDirty(true);
               setKey(k => k + 1);
             }}
           >
@@ -110,7 +115,15 @@ export default function Home() {
       </div>
 
         {/* Grid itself */}
-        <Grid rows={size} cols={size} key={key} fill={flag} />
+        <Grid 
+	  rows={size} 
+	  cols={size}
+	  key={key} 
+	  fill={flag} 
+	  code={code} setCode={setCode} 
+	  dirty={dirty} setDirty={setDirty} 
+	/>
+
     </main>
   );
 }
