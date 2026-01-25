@@ -37,57 +37,57 @@ export default function Grid({ rows, cols, fill }: GridProps) {
     isPointerDown.current = false;
   };
 
-// Dynamically shrink cell gap for large grids
-const gap = Math.max(1, Math.floor(16 / Math.max(rows, cols))); // gap in px
-
-// Calculate the cell size dynamically
-const cellSize = Math.min(95 / cols, 95 / rows); // Ensures the grid fits within 95% of the viewport
-
-return (
-  <div
-    className="grid"
-    style={{
-      display: "grid",
-      gridTemplateColumns: `repeat(${cols}, 1fr)`,
-      gridTemplateRows: `repeat(${rows}, 1fr)`,
-      gap: `${gap}px`,
-      width: `${cellSize * cols}vmin`,
-      height: `${cellSize * rows}vmin`,
-    }}
-    onPointerUp={handlePointerUp}
-  >
-    {cells.map((active, i) => {
-      const r = Math.floor(i / cols); // Row index
-      const c = i % cols; // Column index
-
-      return (
-        <div
-          key={i}
-          className={`border select-none cursor-pointer ${
-            active ? "bg-blue-500" : "bg-gray-200"
-          }`}
-          style={{
-            width: `${cellSize}vmin`,
-            height: `${cellSize}vmin`,
-	    display: `flex`,
-	    justifyContent: `center`,
-	    alignItems: `center`,
-          }}
-          onPointerDown={() => handlePointerDown(i)}
-          onPointerEnter={() => handlePointerEnter(i)}
-        >
-	  <span
-	    style={{
-              fontSize: `${cellSize / 3.3}vmin`,
-	      opacity: 0.6,
-	    }}
-	    >
-            ({r},{c}) {/* Display the row and column */}
-	  </span>
-        </div>
-      );
-    })}
-  </div>
-);
+  // Dynamically shrink cell gap for large grids
+  const gap = Math.max(1, Math.floor(16 / Math.max(rows, cols))); // gap in px
+  
+  // Calculate the cell size dynamically
+  const cellSize = Math.min(95 / cols, 95 / rows); // Ensures the grid fits within 95% of the viewport
+  
+  return (
+    <div
+      className="grid"
+      style={{
+        display: "grid",
+        gridTemplateColumns: `repeat(${cols}, 1fr)`,
+        gridTemplateRows: `repeat(${rows}, 1fr)`,
+        gap: `${gap}px`,
+        width: `${cellSize * cols}vmin`,
+        height: `${cellSize * rows}vmin`,
+      }}
+      onPointerUp={handlePointerUp}
+    >
+      {cells.map((active, i) => {
+        const r = Math.floor(i / cols); // Row index
+        const c = i % cols; // Column index
+  
+        return (
+          <div
+            key={i}
+            className={`border select-none cursor-pointer ${
+              active ? "bg-blue-500" : "bg-gray-200"
+            }`}
+            style={{
+              width: `${cellSize}vmin`,
+              height: `${cellSize}vmin`,
+  	    display: `flex`,
+  	    justifyContent: `center`,
+  	    alignItems: `center`,
+            }}
+            onPointerDown={() => handlePointerDown(i)}
+            onPointerEnter={() => handlePointerEnter(i)}
+          >
+  	  <span
+  	    style={{
+                fontSize: `${cellSize / 3.3}vmin`,
+  	      opacity: 0.6,
+  	    }}
+  	    >
+              ({r},{c}) {/* Display the row and column */}
+  	  </span>
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
