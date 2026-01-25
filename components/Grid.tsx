@@ -37,54 +37,57 @@ export default function Grid({ rows, cols, fill }: GridProps) {
     isPointerDown.current = false;
   };
 
-  // Dynamically shrink cell gap for large grids
-  const gap = Math.max(1, Math.floor(16 / Math.max(rows, cols))); // gap in px
-  
-  return (
-    <div
-      className="grid gap-1"
-      style={{
-        display: "grid",
-        gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
-        gap: `${gap}px`,
-        width: "95vmin",
-        height: "95vmin", // always a square container
-      }}
-      onPointerUp={handlePointerUp}
-    >
-      {cells.map((active, i) => (
-        <div
-          key={i}
-          className={`w-5.5 h-5.5 border select-none cursor-pointer ${
-            active ? "bg-blue-500" : "bg-gray-200"
-          }`}
-          onPointerDown={() => handlePointerDown(i)}
-          onPointerEnter={() => handlePointerEnter(i)}
-        />
-      ))}
-    </div>
-  );
-}
+// Dynamically shrink cell gap for large grids
+const gap = Math.max(1, Math.floor(16 / Math.max(rows, cols))); // gap in px
 
-{/*
-  return (
-    <div
-      className="overflow-hidden" // disable scrolling
-      onPointerUp={handlePointerUp}
-    >
-      {cells.map((active, i) => (
+// Calculate the cell size dynamically
+const cellSize = Math.min(95 / cols, 95 / rows); // Ensures the grid fits within 95% of the viewport
+
+return (
+  <div
+    className="grid"
+    style={{
+      display: "grid",
+      gridTemplateColumns: `repeat(${cols}, 1fr)`,
+      gridTemplateRows: `repeat(${rows}, 1fr)`,
+      gap: `${gap}px`,
+      width: `${cellSize * cols}vmin`,
+      height: `${cellSize * rows}vmin`,
+    }}
+    onPointerUp={handlePointerUp}
+  >
+    {cells.map((active, i) => {
+      const r = Math.floor(i / cols); // Row index
+      const c = i % cols; // Column index
+
+      return (
         <div
           key={i}
-          className={`border select-none cursor-pointer bg-gray-200 ${
+          className={`border select-none cursor-pointer ${
             active ? "bg-blue-500" : "bg-gray-200"
           }`}
-          style={{ aspectRatio: "1 / 1" }}
+          style={{
+            width: `${cellSize}vmin`,
+            height: `${cellSize}vmin`,
+	    display: `flex`,
+	    justifyContent: `center`,
+	    alignItems: `center`,
+          }}
           onPointerDown={() => handlePointerDown(i)}
           onPointerEnter={() => handlePointerEnter(i)}
-        />
-      ))}
-    </div>
-  );
+        >
+	  <span
+	    style={{
+              fontSize: `${cellSize / 3.3}vmin`,
+	      opacity: 0.6,
+	    }}
+	    >
+            ({r},{c}) {/* Display the row and column */}
+	  </span>
+        </div>
+      );
+    })}
+  </div>
+);
 }
-*/}
 

@@ -123,3 +123,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+/* Ensure the HTML and BODY fill the viewport */
+html, body {
+  height: 100%; /* Full height of the viewport */
+  margin: 0; /* Remove default margin */
+}
+
+/* Optional: make sure there's no scrolling */
+body {
+  overflow: hidden;
+}
+
+main {
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  width: 100%; /* Ensure the main element takes up the full width */
+  height: 100%; /* Ensure the main element takes up the full height */
+}
