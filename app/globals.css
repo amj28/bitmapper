@@ -126,8 +126,8 @@
 
 
 /* Ensure the HTML and BODY fill the viewport */
-html, main {
-  margin-top: 0rem; /* Remove default margin */
+main {
+  margin-top: -0.5rem; /* Remove default margin */
 }
 
 /* Optional: make sure there's no scrolling */

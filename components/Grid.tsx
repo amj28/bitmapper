@@ -41,7 +41,7 @@ export default function Grid({ rows, cols, fill }: GridProps) {
   const gap = Math.max(1, Math.floor(16 / Math.max(rows, cols))); // gap in px
   
   // Calculate the cell size dynamically
-  const cellSize = Math.min(95 / cols, 95 / rows); // Ensures the grid fits within 95% of the viewport
+  const cellSize = Math.min(92.5 / cols, 92.5 / rows); // Ensures the grid fits within 95% of the viewport
   
   return (
     <div
